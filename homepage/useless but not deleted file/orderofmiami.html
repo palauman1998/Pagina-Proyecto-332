@@ -1,0 +1,253 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+	<link rel = "stylesheet" href = "Leaflet.css">
+   <link rel= "stylesheet" href = "MyMap.css">
+
+    <title>Projects of Miami</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="pastorder.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="ie-emulation-modes-warning.js"></script>
+
+  </head>
+
+  <body>
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+		integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+		crossorigin="">
+	</script>
+	
+	<div id="mapid"></div>
+	
+	<div class="rectanglecontainer" id ="left">
+	<script>
+	const mymap = L.map('mapid').setView([25.77481, -80.19773], 13);
+	
+	const attribution = '$copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+	const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	const tiles = L.tileLayer(tileUrl, {attribution});
+	tiles.addTo(mymap);
+	
+	L.marker([50.58007, -3.75578]).addTo(mapid).bindPopup("<b>This is Haytor!</b>"),openPopup();
+	//L.marker([50.5, 30.5]).addTo(mymap);
+	//var marker = L.marker([51.5, -0.09]).addTo(mymap);
+	</script>
+	</div>
+	
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Skyline</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="homepage.html">Homepage</a></li>
+            <li><a href="aboutus.html">Contact Us</a></li>
+            <li><a href="pastorder.html">Past orders</a></li>
+            <li><a href="homepage.html">Place orders </a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+		<div class="container1">
+		<center>
+          <h1 class="page-header">Projects of Miami</h1>
+          </div>
+
+ <form action="orderofmiami.php" method="post">
+            <input type="text" name="valueToSearch" placeholder="Value To Search"><br><br>
+			<input type="submit" name="search" value="Search by Sensor"><br><br>
+			<input type="datetime" name = "dateToSearch" placeholder="Search by Date" /><br><br>
+			<input type="submit" name="datesearch" value="Search by Date"><br><br>
+			</form>
+
+
+<?php
+
+if(isset($_POST['search']))
+{
+    
+	$valueToSearch = $_POST['valueToSearch'];
+    // search in all table columns
+    // using concat mysql function
+   
+	$query = "SELECT * FROM Readings WHERE SensorID = $valueToSearch";
+    $search_result = filterTable($query);
+	
+	
+    
+}
+if(isset($_POST['datesearch'])){
+    
+	$dateToSearch = $_POST['dateToSearch'];
+    // search in all table columns
+    // using concat mysql function
+   
+	$query = "SELECT * FROM Readings WHERE DateTime LIKE $dateToSearch";
+    $search_result = filterTable($query);
+	
+	
+}
+
+
+
+// function to connect and execute the query
+
+
+function filterTable($query)
+{
+	
+	
+	$servername = "mydb.itap.purdue.edu";
+$username = "g1109686";
+$password = "Algorithm12345";
+$dbname = "g1109686";
+
+
+
+// Create connection
+$connect = mysqli_connect($servername, $username, $password, $dbname);
+    $filter_Result = mysqli_query($connect, $query);
+    return $filter_Result;
+}
+
+?>
+
+
+
+
+
+
+
+
+          <h2 class="sub-header">Air Quality Monitoring from Fixed Sensors</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+         <th class="text-center">Fixed Sensor ID</th> 
+				<th class="text-center">Date and Time</th>
+                  <th class="text-center">Temperature (°C)</th>
+                  <th class="text-center">Pressure (hPa)</th>
+                  <th class="text-center">Humidity (%)</th>
+                  <th class="text-center">PM1</th>
+                  <th class="text-center">PM2.5</th>
+                  <th class="text-center">PM10</th>
+				  <th class="text-center">Latitude</th>
+                  <th class="text-center">Longitude</th>
+                  <th class="text-center">Air Quality Performance</th>
+                </tr>
+              </thead>
+              <tbody>
+                   <tr>
+                  <th class="text-center table-light text-dark">1</th>
+                  <td class="text-center text-dark">2018/10/25 01:00</td>
+				    <td class="text-center text-dark">10</td>
+                  <td class="text-center text-dark">20</td>
+				   <td class="text-center text-dark">10</td>
+				    <td class="text-center text-dark">5</td>
+					 <td class="text-center text-dark">30</td>
+                  <td class="text-center text-dark">10</td>
+                  <td class="text-center text-dark">10</td>
+                  <td class="text-center text-dark">110</td>
+                  <td class="text-center text-dark"> Good</td>
+                </tr>
+                
+              </tbody>
+			   <?php while($row = mysqli_fetch_array($search_result)):?>
+                <tr>
+                    <td><?php echo $row['SensorID'];?></td>
+                    <td><?php echo $row['DateTime'];?></td>
+                    <td><?php echo $row['Temperature'];?></td>
+                    <td><?php echo $row['Pressure'];?></td>
+					<td><?php echo $row['Humidity'];?></td>
+                    <td><?php echo $row['PM1'];?></td>
+                    <td><?php echo $row['PM2_5'];?></td>
+                    <td><?php echo $row['PM10'];?></td>
+                </tr>
+                <?php endwhile;?>
+			  
+            </table>
+          </div>
+		  
+		      <h2 class="sub-header">Air Quality Monitoring from Mobile Sensors</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+         <th class="text-center">Mobile Sensor ID</th> 
+				<th class="text-center">Date</th> 		 
+                  <th class="text-center">Time</th> 
+				  <th class="text-center">Sensor Latitude</th>
+                  <th class="text-center">Sensor Longitude</th>
+                  <th class="text-center">Temperature</th>
+                  <th class="text-center">Pressure</th>
+                  <th class="text-center">Humidity</th>
+                  <th class="text-center">PM1</th>
+                  <th class="text-center">PM2.5</th>
+                  <th class="text-center">PM10</th>
+                  <th class="text-center">Air Quality Performance</th>
+                </tr>
+              </thead>
+              <tbody>
+                   <tr>
+                  <th class="text-center table-light text-dark">1</th>
+                  <td class="text-center text-dark">2018/10/25</td>
+				   <td class="text-center text-dark">01:00</td>
+				    <td class="text-center text-dark">10</td>
+                  <td class="text-center text-dark">20</td>
+				   <td class="text-center text-dark">10</td>
+				    <td class="text-center text-dark">5</td>
+					 <td class="text-center text-dark">30</td>
+                  <td class="text-center text-dark">10</td>
+                  <td class="text-center text-dark">10</td>
+                  <td class="text-center text-dark">110</td>
+                  <td class="text-center text-dark"> Good</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+		  
+        </div>
+      </div>
+	 </div>
+ 
+	 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+     <script src='https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js'></script>
+	 <script src="script.js"></script>
+    </section>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
