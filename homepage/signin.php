@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-	<title>Recaptcha</title>
+	<title>Skyline - Sign In</title>
 <script src='https://www.google.com/recaptcha/api.js'></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<script src='https://www.google.com/recaptcha/api.js'></script>
@@ -19,7 +19,7 @@
     <script src="ie-emulation-modes-warning.js"></script>
 </head>
 
-<body> 
+<body>
 <?php
 // Checks if form has been submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -56,9 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<br><p>CAPTCHA was completed successfully!</p><br>';
     }
 } else { ?>
-    
+
 
     <!-- FORM -->
+    <!-- Action calls PHP file 'LoginValidation.php' for input validation. This file checks if email and password match in the database.
+    If match, sends user to homepage.php (homepage), else, prompts the user to try again.-->
     <form action="LoginValidation.php" method="post">
 	<div class="container2">
 		<center>
@@ -67,26 +69,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		</div>
 	</div>
     <div class="container1">
+      <!-- Form: User E-mail and password required using "required" HTML Attribute -->
       <form class="form-signin"><center>
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" name="inputEmail" class="form-control1" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="inputPassword" class="form-control1" placeholder="Password" required>
-       
+
+       <!-- Inserts reCaptcha -->
         <br>
 		 <div class="g-recaptcha" data-sitekey="6LfIm8MUAAAAACkzh2DUr-usgSftJjGJzMLOQG3C"></div>
         <br>
         <button class="btn btn-lg btn-primary btn-block"  type="submit">Sign in</button><br>
 
+        <!-- If user does not have an account, user is redirected to createaccount.html page-->
 		<div class="createaccount">
 			<a href="createaccount.html" class="createaccount">
 			Sign Up
-			</a>
+    </a>
 		</div>
+
+    <!-- If user forgot password, user is redirected to forget.html page for passowrd recovery-->
+
 		<div class="createaccount">
 			<a href="forget.html" class="createaccount">
-			Forget Password
+			Forgot Password?
 			</a>
 		</div>
       </form>
@@ -94,4 +102,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php } ?>
 </body>
 </html>
-

@@ -1,7 +1,7 @@
 <?php
 SESSION_START();
 ?>
-<?php 
+<?php
 $FName = $_SESSION['FName'];
 $LName = $_SESSION['LName'];
 ?>
@@ -26,6 +26,7 @@ $LName = $_SESSION['LName'];
 
   <body>
 
+    <!--Includes navigation bar to continue with overall website design-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <a class="navbar-brand" href="#">Skyline</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +74,7 @@ $LName = $_SESSION['LName'];
 				   <th class="text-center">Mobile Sensor Numbers</th>
 				   <th class="text-center">Start Date</th>
                   <th class="text-center">Status</th>
-                 
+
                 </tr>
               </thead>
               <tbody>
@@ -87,7 +88,7 @@ $LName = $_SESSION['LName'];
 				  <td class="text-center text-dark">100</td>
 				  <td class="text-center text-dark"> 10/10/2018</td>
                   <td class="text-center text-dark"> Active</td>
-				  
+
                 </tr>
                 <tr>
                     <th class="text-center table-light text-dark"><a href="orderofseattle.php">2</a></th>
@@ -99,7 +100,7 @@ $LName = $_SESSION['LName'];
 				  <td class="text-center text-dark">100</td>
 				  <td class="text-center text-dark"> 10/10/2018</td>
                   <td class="text-center text-dark"> Active</td>
-				  
+
                 </tr>
                 <tr>
                    <th class="text-center text-dark"><a href="orderofatalanta.php">3</th>
@@ -111,7 +112,7 @@ $LName = $_SESSION['LName'];
 				  <td class="text-center text-dark">100</td>
 				  <td class="text-center text-dark"> 10/10/2018</td>
                   <td class="text-center text-dark"> Active</td>
-				  
+
                 </tr>
                    <tr>
                    <th class="text-center table-light text-dark"><a href="orderofchicago.php">4</th>
@@ -123,7 +124,7 @@ $LName = $_SESSION['LName'];
 				  <td class="text-center text-dark">100</td>
 				  <td class="text-center text-dark"> 10/10/2018</td>
                   <td class="text-center text-dark"> Active</td>
-				  
+
                 </tr>
                    <tr>
                    <th class="text-center text-dark"><a href="orderofdenver.php">5</th>
@@ -135,7 +136,7 @@ $LName = $_SESSION['LName'];
 				  <td class="text-center text-dark">100</td>
 				  <td class="text-center text-dark"> 10/10/2018</td>
                   <td class="text-center text-dark"> Active</td>
-				  
+
                    <tr>
                    <th class="text-center table-light text-dark"><a href="orderofindy.php">6</th>
                   <td class="text-center text-dark"><a href="orderofindy.php">Indianapolis</td>
@@ -146,7 +147,7 @@ $LName = $_SESSION['LName'];
 				  <td class="text-center text-dark">100</td>
 				  <td class="text-center text-dark"> 10/10/2018</td>
                   <td class="text-center text-dark"> Active</td>
-				  
+
                 </tr>   <tr>
                    <th class="text-center text-dark"><a href="orderofnashville.php">7</th>
                   <td class="text-center text-dark"><a href="orderofnashville.php">Nashville</td>
@@ -157,7 +158,7 @@ $LName = $_SESSION['LName'];
 				  <td class="text-center text-dark">100</td>
 				  <td class="text-center text-dark"> 10/10/2018</td>
                   <td class="text-center text-dark"> Active</td>
-			
+
                 </tr>
               </tbody>
             </table>
@@ -170,7 +171,7 @@ $LName = $_SESSION['LName'];
      <script src='https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js'></script>
 	 <script src="script.js"></script>
     </section>
-	
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

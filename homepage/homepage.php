@@ -1,7 +1,7 @@
 <?php
 SESSION_START();
 ?>
-<?php 
+<?php
 $FName = $_SESSION['FName'];
 $LName = $_SESSION['LName'];
 ?>
@@ -26,11 +26,15 @@ $LName = $_SESSION['LName'];
   </head>
 
   <body>
+
+    <!-- Calls particle.js file feature for attractiveness-->
     <div id="particles-js"></div>
 	<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   	<script src="particles.js"></script>
 	<script src="app.js"></script>
-	
+
+  <!-- Includes navigation bar to continue with overall design of website -->
+
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <a class="navbar-brand" href="#">Skyline</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +43,9 @@ $LName = $_SESSION['LName'];
 	  <div class="collapse navbar-collapse" id="navbarText">
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
+
+    <!-- Includes the name of the user signed into the website in navigation bar-->
+
 			<a class="nav-link" ><?php echo $FName;?> <?php echo " ";?><?php echo $LName;?></a>
 			</li>
 			<li class="nav-item">
@@ -72,7 +79,7 @@ $LName = $_SESSION['LName'];
         <div class="title">
           <img src="logo.png" alt="" class="logo" id="logo1">
         </div>
-	  
+
 	  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -83,22 +90,24 @@ $LName = $_SESSION['LName'];
               </button>
             </div>
             <div class="modal-body">
+
+            <!--Begins form allowing user input for new desired projects-->
               <form>
                 <div class="container2">
                   <div class="form-group">
                   <label for="city_select">City</label>
-                    <input type="text" class="form-control" id="city_select" placeholder="City">
+                    <input type="text" class="form-control" id="city_select" placeholder="West Lafayette">
                   </div>
                   <div class="form-group">
                   <label for="city_select">State</label>
-                    <input type="text" class="form-control" id="state_select" placeholder="State">
+                    <input type="text" class="form-control" id="state_select" placeholder="Indiana">
                   </div>
                   <div class="form-group">
-                    <label for="message-text" class="col-form-label">Budget ($):</label>
-                    <input type="text" class="form-control" id="bottom-right" placeholder="1000">
+                    <label for="message-text" class="col-form-label">Budget (US Dollars):</label>
+                    <input type="text" class="form-control" id="Budget" placeholder="1000">
                   </div>
                   <div class="form-group">
-                    <label for="duration_select">Duration (year)</label>
+                    <label for="duration_select">Duration (Years)</label>
                     <select class="form-control" id="duration_select">
                       <option>1</option>
                       <option>2</option>
@@ -111,55 +120,59 @@ $LName = $_SESSION['LName'];
                       <option>9</option>
                       <option>10</option>
                     </select>
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label">When Do You Wish This Project To Start?:</label>
+                      <input type="text" class="form-control" id="StartDate" placeholder="1000">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Lower Left Coordinate Latitude:</label>
+                    <input type="text" class="form-control" name="lower-left-latitude-boundary" placeholder="Latitude">
+                  </div>
+				   <div class="form-group">
+                    <label for="message-text" class="col-form-label">Lower Left Coordinate Longitude:</label>
+                    <input type="text" class="form-control" id="lower-left-longitude-boundary" placeholder="Longitude">
                   </div>
                   <div class="form-group">
                     <label for="message-text" class="col-form-label">Upper Right Coordinate Latitude:</label>
-                    <input type="text" class="form-control" name="upper-right-latitude-boundary" placeholder="Latitude">
-                  </div>
-				   <div class="form-group">  
-                    <label for="message-text" class="col-form-label">Upper Right Coordinate Longitude:</label>
-                    <input type="text" class="form-control" id="upper-right-longitude-boundary" placeholder="Longitude">
-                  </div>
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Bottom Left Coordinate Latitude:</label>
-                    <input type="text" class="form-control" id="bottom-left-latitude-boundary" placeholder="latitude">
+                    <input type="text" class="form-control" id="upper-right-latitude-boundary" placeholder="latitude">
                   </div>
 				  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Bottom Left Coordinate Longitude:</label>
-                    <input type="text" class="form-control" id="bottom-left-longitude-boundary" placeholder="longtitude">
+                    <label for="message-text" class="col-form-label">Upper Right Coordinate Longitude:</label>
+                    <input type="text" class="form-control" id="upper-right-longitude-boundary" placeholder="longtitude">
                   </div>
                 </div>
                 <div class="container3">
                   <h3>Invalid Regions:</h3>
-                  <h6> This includes: Bodies of water and protected areas <h6>
+                  <h6> This includes: Bodies of water and protected areas where sensors should not be placed <h6>
                   <div class="form-group">
-       
-					<button type="button" class="btn btn-primary btn-xs add">Add</button> 
+
+					<button type="button" class="btn btn-primary btn-xs add">Add</button>
 					<button type="button" class="btn btn-default btn-xs remove">Remove</button><span class="msg text-danger"></span>
                  <hr>
-				 
+
                  <form>
                  <div class="container dynamic-rows"></div>
                  </form>
 
                  <script type="text/template" id="form_rows_tpl">
-                 
+
 				<div class="row">
                 <div>
                  <p>
-				<label for="upper-right-latitude-invalid_{{count}}">{{count}}. Upper Right Coordinate Latitude</label><br>
-                <input type="text" name="upper-right-latitude-invalid"placeholder="Latitude"id="upper-right-latitude-invalid_{{count}}">
+				        <label for="lower-left-latitude-invalid_{{count}}">{{count}}. Lower Left Coordinate Latitude</label><br>
+                <input type="text" name="lower-left-latitude-invalid"placeholder="Latitude"id="lower-left-latitude-invalid_{{count}}">
                 </p>
                 </div>
                 <div >
-               
-                <label for="upper-right-longitude-invalid_{{count}}">Upper Right Coordinate Longitude</label><br>
+
+                <label for="lower-left-longitude-invalid_{{count}}">Lower Left Coordinate Longitude</label><br>
+                <input type="text" name="lower-left-longitude-invalid"placeholder="Longitude" id="lower-left-longitude-invalid_{{count}}">
+				        <label for="upper-right-latitude-invalid_{{count}}">Upper Right Coordinate Latitude</label><br>
+                <input type="text" name="upper-right-latitude-invalid"placeholder="Latitude" id="upper-right-latitude-invalid_{{count}}">
+				        <label for="upper-right-longitude-invalid_{{count}}}">Upper Right Coordinate Longitude</label><br>
                 <input type="text" name="upper-right-longitude-invalid"placeholder="Longitude" id="upper-right-longitude-invalid_{{count}}">
-				  <label for="bottom-left-latitude-invalid_{{count}}">Bottom Left Coordinate Latitude</label><br>
-                <input type="text" name="bottom-left-latitude-invalid"placeholder="Latitude" id="bottom-left-latitude-invalid_{{count}}">
-				  <label for="bottom-left-longitude-invalid_{{count}}}">Bottom Left Coordinate Longitude</label><br>
-                <input type="text" name="bottom-left-longitude-invalid"placeholder="Longitude" id="bottom-left-longitude-invalid_{{count}}">
-                
+
                 </div>
                 <div class="col-lg-4">
                 <p>
@@ -199,26 +212,26 @@ $LName = $_SESSION['LName'];
       <div class="modal fade" id="budget" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-             <div class="modal-header"> 
-               <h5 class="modal-title" id="exampleModalLabel">How much of the area do you want to cover?</h5> 
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close"> 
-                 <span aria-hidden="true">&times;</span> 
-               </button> 
-             </div> 
-             <div class="modal-body budget_body"> 
-               <form style="display: contents; vertical-align: middle;"> 
-                 <div class="container2"> 
-                   <div class="form-group group"> 
-                     <div class="radiobutton"> 
-                       <label class="budget_desc">5%<input type="radio" name="optradio" class="radio_option"></label> 
-                       <label class="budget_desc">10%<input type="radio" name="optradio" class="radio_option"></label> 
-                       <label class="budget_desc">20%<input type="radio" name="optradio" class="radio_option"></label> 
-                     </div> 
-                   </div> 
-                 </div> 
-               </form> 
-               <div class="budget_number"></div> 
-             </div> 
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">How much of the area do you want to cover?</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body budget_body">
+               <form style="display: contents; vertical-align: middle;">
+                 <div class="container2">
+                   <div class="form-group group">
+                     <div class="radiobutton">
+                       <label class="budget_desc">5%<input type="radio" name="optradio" class="radio_option"></label>
+                       <label class="budget_desc">10%<input type="radio" name="optradio" class="radio_option"></label>
+                       <label class="budget_desc">20%<input type="radio" name="optradio" class="radio_option"></label>
+                     </div>
+                   </div>
+                 </div>
+               </form>
+               <div class="budget_number"></div>
+             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#final_data">Continue</button>
@@ -240,32 +253,32 @@ $LName = $_SESSION['LName'];
                  <div class="container4">
                   <h3>Rural Regions</h3>
                   <div class="form-group">
-       
-					<button type="button" class="btn btn-primary btn-xs add">Add</button> 
+
+					<button type="button" class="btn btn-primary btn-xs add">Add</button>
 					<button type="button" class="btn btn-default btn-xs remove">Remove</button> <span class="msg text-danger"></span>
                  <hr>
-				 
+
                  <form>
                  <div class="container dynamic-rows"></div>
                  </form>
 
                  <script type="text/template" id="form_rows_tpl">
-                 
+
 				<div class="row">
                 <div>
                  <p>
-				<label for="upper-right-latitude-rural_{{count}}">{{count}}. Upper Right Coordinate Latitude</label><br>
-                <input type="text" name="upper-right-latitude-rural"placeholder="Latitude"id="upper-right-latitude-rural_{{count}}">
+				<label for="upper-right-latitude-rural_{{count}}">{{count}}. Lower Left Coordinate Latitude</label><br>
+                <input type="text" name="lower-left-latitude-rural"placeholder="Latitude"id="lower-left-latitude-rural_{{count}}">
                 </p>
                 </div>
                 <div >
-                <label for="upper-right-longitude-rural_{{count}}">Upper Right Coordinate Longitude</label><br>
+                <label for="lower-left-longitude-rural_{{count}}">Lower Left Coordinate Longitude</label><br>
+                <input type="text" name="lower-left-longitude-rural"placeholder="Longitude" id="lower-left-longitude-rural_{{count}}">
+				        <label for="upper-right-latitude-rural_{{count}}">Upper Right Coordinate Latitude</label><br>
+                <input type="text" name="upper-right-latitude-rural"placeholder="Latitude" id="upper-right-latitude-rural_{{count}}">
+				        <label for="upper-right-longitude-invalid_{{count}}}">Upper Right Coordinate Longitude</label><br>
                 <input type="text" name="upper-right-longitude-rural"placeholder="Longitude" id="upper-right-longitude-rural_{{count}}">
-				  <label for="bottom-left-latitude-rural_{{count}}">Bottom Left Coordinate Latitude</label><br>
-                <input type="text" name="bottom-left-latitude-rural"placeholder="Latitude" id="bottom-left-latitude-rural_{{count}}">
-				  <label for="bottom-left-longitude-invalid_{{count}}}">Bottom Left Coordinate Longitude</label><br>
-                <input type="text" name="bottom-left-longitude-rural"placeholder="Longitude" id="bottom-left-longitude-rural_{{count}}">
-                
+
                 </div>
                 <div class="col-lg-4">
                 <p>
@@ -274,37 +287,37 @@ $LName = $_SESSION['LName'];
                 </script>
                   </div>
                 </div>
-				
+
                  <div class="container5">
                   <h3>Hotspots:</h3>
-                  <h6> This includes: Industrial Areas, Residential Areas, Urban Areas <h6>
+                  <h6> This includes: Industrial Facilities, High Traffic Areas, and Urban City Centers <h6>
                   <div class="form-group">
-       
-					<button type="button" class="btn btn-primary btn-xs add">Add</button> 
+
+					<button type="button" class="btn btn-primary btn-xs add">Add</button>
 					<button type="button" class="btn btn-default btn-xs remove">Remove</button> <span class="msg text-hotspot"></span>
                  <hr>
-				 
+
                  <form>
                  <div class="container dynamic-rows"></div>
                  </form>
 
                  <script type="text/template" id="form_rows_tpl">
-                 
+
 				<div class="row">
                 <div>
                  <p>
-				<label for="upper-right-latitude-hotspot_{{count}}">{{count}}. Upper Right Coordinate Latitude</label><br>
-                <input type="text" name="upper-right-latitude-hotspot"placeholder="Latitude"id="upper-right-latitude-hotspot_{{count}}">
+				<label for="lower-left-latitude-hotspot_{{count}}">{{count}}. Lower Left Coordinate Latitude</label><br>
+                <input type="text" name="lower-left-latitude-hotspot"placeholder="Latitude"id="lower-left-latitude-hotspot_{{count}}">
                 </p>
                 </div>
                 <div >
-                <label for="upper-right-longitude-hotspot_{{count}}">Upper Right Coordinate Longitude</label><br>
+                <label for="lower-left-longitude-hotspot_{{count}}">Lower Left Coordinate Longitude</label><br>
+                <input type="text" name="lower-left-longitude-hotspot"placeholder="Longitude" id="lower-left-longitude-hotspot_{{count}}">
+				        <label for="upper-right-latitude-hotspot_{{count}}">Upper Right Coordinate Latitude</label><br>
+                <input type="text" name="upper-right-latitude-hotspot"placeholder="Latitude" id="upper-right-latitude-hotspot_{{count}}">
+				        <label for="upper-right-longitude-hotspot_{{count}}}">Upper Right Coordinate Longitude</label><br>
                 <input type="text" name="upper-right-longitude-hotspot"placeholder="Longitude" id="upper-right-longitude-hotspot_{{count}}">
-				  <label for="bottom-left-latitude-hotspot_{{count}}">Bottom Left Coordinate Latitude</label><br>
-                <input type="text" name="bottom-left-latitude-hotspot"placeholder="Latitude" id="bottom-left-latitude-hotspot_{{count}}">
-				  <label for="bottom-left-longitude-hotspot_{{count}}}">Bottom Left Coordinate Longitude</label><br>
-                <input type="text" name="bottom-left-longitude-hotspot"placeholder="Longitude" id="bottom-left-longitude-hotspot_{{count}}">
-                
+
                 </div>
                 <div class="col-lg-4">
                 <p>
@@ -313,8 +326,8 @@ $LName = $_SESSION['LName'];
                 </script>
                   </div>
                 </div>
-				
-           
+
+
                 </div>
               </form>
             </div>
@@ -326,7 +339,7 @@ $LName = $_SESSION['LName'];
           </div>
         </div>
       </div>
-	  
+
 	 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
      <script src='https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js'></script>
 	 <script src="script.js"></script>

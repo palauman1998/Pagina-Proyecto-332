@@ -1,7 +1,7 @@
 <?php
 SESSION_START();
 ?>
-<?php 
+<?php
 $FName = $_SESSION['FName'];
 $LName = $_SESSION['LName'];
 ?>
@@ -26,6 +26,8 @@ $LName = $_SESSION['LName'];
   </head>
 
   <body>
+
+    <!-- Inserts navigation bar in about us page to maintain website structure.-->
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <a class="navbar-brand" href="#">Skyline</a>
@@ -55,9 +57,12 @@ $LName = $_SESSION['LName'];
 
     <div class="title">
 <br>
+
+  <!-- Personal information and contact for each member-->
+
       <center>
       <h1 style="color: black;">Meet our Awesome Team</h1>
-      <h3>We are Purdue Industrial Engineering Students here to provide optimized dynamic sensor network solutions over multiple geographic regions</h3><br>
+      <h3>We are Purdue Industrial Engineering Students here to provide optimized dynamic sensor network solutions over multiple geographic regions.</h3><br>
       </center>
     </div>
     <div class="outercontainer">
@@ -97,7 +102,7 @@ $LName = $_SESSION['LName'];
             </div>
           </div>
         </div>
-		
+
         <div class="column">
           <div class="card" style="width: 20rem;style="height: 15rem;>
             <img src="4.jpeg" width="150" height="150" alt="Jiani"  class="pfp" style="margin-left:75px">
@@ -106,7 +111,7 @@ $LName = $_SESSION['LName'];
               <p class="title" style="margin-left:50px">Senior Programmer</p>
               <p style="margin-left:50px">he364@purdue.edu</p>
 			  <p><button class="button" onclick=" window.open('https://www.linkedin.com/in/jiani-he-19980225/','_blank')">Contact</button></p>
-        
+
             </div>
           </div>
         </div>
@@ -134,7 +139,7 @@ $LName = $_SESSION['LName'];
               </div>
             </div>
           </div>
-		  
+
 		    <div class="column">
           <div class="card" style="width: 20rem;style="height: 15rem;>
             <img src="5.jpeg" width="150" height="150" alt="Spoorthi" class="pfp" style="margin-left:75px">
@@ -146,11 +151,11 @@ $LName = $_SESSION['LName'];
             </div>
           </div>
         </div>
-		
+
        </div>
     </div>
 
-  
+
 	 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
      <script src='https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js'></script>
 	 <script src="script.js"></script>

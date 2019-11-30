@@ -1,4 +1,4 @@
-<?php session_start();
+ <?php session_start();
 
 //Database Connection Credentials
 $servername = "mydb.itap.purdue.edu";
@@ -13,7 +13,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if($conn->connect_error){
 	die('Connection Failed : '.$conn->connect_error);
 }
-//Insert Statement - Form to Database
+//Insert Statement - Form to Database. Encrypts sensitive user information before sending to database.
 //$CustomerID=$_POST['CustomerID'];
 $FName = $_POST['firstName'];
 $LName = $_POST['lastName'];
@@ -44,10 +44,10 @@ if ($result === FALSE) {
 else
 {
 echo "<script> alert('Profile updated!'); </script>";
-header("refresh:1; url=https://web.ics.purdue.edu/~g1109686/homepage/signin.php");//Refresh to home page
+header("refresh:1; url=https://web.ics.purdue.edu/~g1109686/homepage/signin.php");//User is refreshed to home page
 }
-	
-$conn->close(); 
+
+$conn->close();
 
 
 ?>

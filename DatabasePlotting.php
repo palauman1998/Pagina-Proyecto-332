@@ -11,15 +11,8 @@ return $xmlStr;
 }
 
 // Opens a connection to a MySQL server
-$servername = "mydb.itap.purdue.edu";
-$username = "g1109686";
-$password = "Algorithm12345";
-$dbname = "g1109686";
 
-
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+include_once 'db.php';
 
 // Select all the rows in the markers table
 $query = "SELECT * FROM Fixed_Sensors";
@@ -48,6 +41,6 @@ while ($row = @mysqli_fetch_assoc($result)){
 
 // End XML file
 echo '</markers>';
-$conn->close(); 
+$conn->close();
 
 ?>

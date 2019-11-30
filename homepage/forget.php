@@ -26,6 +26,7 @@ $sql = "SELECT * from Customers WHERE EMail = '$EMail'";
 $sqlnew = "UPDATE `Customers` SET`Password`= '$var_newpassword' WHERE EMail= '$EMail'";
 $result = $conn->query($sql);
 
+//If password is updated correctly in the database, user is prompted to the homepage. Else, error is displayed and user is refreshed to the same page (forget.html)
 if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
 			if ($FName == $row["FName"] and $LName == $row["LName"] and $EMail == $row["EMail"] and $var_AccountNumber == $row["AccountNumber"]){
@@ -43,7 +44,7 @@ if ($result->num_rows > 0) {
 					</script>";
 				header("refresh:1; url=https://web.ics.purdue.edu/~g1109686/homepage/forget.html");
 			}
-		}		
+		}
 }else{
 	echo "<script type='text/javascript'>
 							alert('Information Incorrect2. Please Try Again.');
