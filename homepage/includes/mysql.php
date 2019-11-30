@@ -1,5 +1,4 @@
-<?php session_start();
-
+<?php 
 //Database Connection Credentials
 /*$servername = "mydb.itap.purdue.edu";
 $username = "g1109686";
@@ -9,7 +8,7 @@ $dbname = "g1109686";*/
 $servername = "localhost";
 $username = "root";
 $password = "puntonet";
-$dbname = "pagina";
+$dbname = "pagina32";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -18,6 +17,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if($conn->connect_error){
 die('Connection Failed : '.$conn->connect_error);
 }
+
+
 ?>
 
 

@@ -1,5 +1,6 @@
 <?php
 SESSION_START();
+include_once 'includes/mysql.php';
 ?>
 <?php
 $FName = $_SESSION['FName'];
@@ -60,6 +61,25 @@ $LName = $_SESSION['LName'];
 <br>
 <br>
 <br>
+
+<?php
+$query = "SELECT P.CityID, P.CityName, '0 miles' as Total, P.Budget, P.Duration, COUNT(S.SensorID) as 'Fixed Sensor Numbers', (CASE WHEN M.Mobile IS NULL THEN 0 ELSE M.Mobile END ) as 'Mobile Sensor Numbers', DATE_FORMAT(P.StartDate, '%m/%d/%Y') as StartDate, 'Active' as Status
+FROM Projects P 
+INNER JOIN Sensors S ON P.CityID = S.CityID 
+LEFT JOIN 
+(SELECT P.CityID, P.CityName, '0 miles' as Total, P.Budget, P.Duration, COUNT(S.SensorID) as Mobile, P.StartDate, 'Active' as Status
+FROM Projects P 
+inner join Sensors S 
+ON P.CityID = S.CityID 
+WHERE S.SensorType = 2
+GROUP BY P.CityID ORDER BY P.CityID) as M ON P.CityID = M.CityID
+WHERE S.SensorType = 1
+GROUP BY  P.CityID ORDER BY P.CityID";
+
+$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+?>
+
           <h2 class="sub-header"><center>Air Quality Monitoring Condition</h2>
           <div class="table-responsive">
             <table class="table table-striped">
@@ -78,88 +98,24 @@ $LName = $_SESSION['LName'];
                 </tr>
               </thead>
               <tbody>
+              
+              <?php   
+              while($row = mysqli_fetch_array($result)) { 
+              ?>
                 <tr>
-	   <th class="text-center text-dark"><a href="orderofmiami.php">1</a></th>
-	<td class="text-center text-dark"><a href="orderofmiami.php">Miami</a></td>
-                  <td class="text-center text-dark">56.06 sq miles</td>
-                  <td class="text-center text-dark">$10k</td>
-                  <td class="text-center text-dark">1 year</td>
-                  <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark"> 10/10/2018</td>
-                  <td class="text-center text-dark"> Active</td>
-
+                  <th class="text-center text-dark"><a href="orderofmiami.php"><?php echo $row["CityID"] ?></a></th>
+                  <td class="text-center text-dark"><a href="orderofcity.php?cityID=<?php echo $row['CityID'] ?>"><?php echo $row["CityName"] ?></a></td>
+                  <td class="text-center text-dark"><?php echo $row["Total"] ?></td>
+                  <td class="text-center text-dark"><?php echo $row["Budget"] ?></td>
+                  <td class="text-center text-dark"><?php echo $row["Duration"] ?></td>
+                  <td class="text-center text-dark"><?php echo $row["Fixed Sensor Numbers"] ?></td>
+                  <td class="text-center text-dark"><?php echo $row["Mobile Sensor Numbers"] ?></td>
+                  <td class="text-center text-dark"><?php echo $row["StartDate"] ?></td>
+                  <td class="text-center text-dark"><?php echo $row["Status"] ?></td>
                 </tr>
-                <tr>
-                    <th class="text-center table-light text-dark"><a href="orderofseattle.php">2</a></th>
-                  <td class="text-center text-dark"><a href="orderofseattle.php">Seattle</td>
-                  <td class="text-center text-dark">142.07 sq miles</td>
-                  <td class="text-center text-dark">$10k</td>
-                  <td class="text-center text-dark">1 year</td>
-               <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark"> 10/10/2018</td>
-                  <td class="text-center text-dark"> Active</td>
-
-                </tr>
-                <tr>
-                   <th class="text-center text-dark"><a href="orderofatalanta.php">3</th>
-                  <td class="text-center text-dark"><a href="orderofatlanta.php">Atlanta</td>
-                  <td class="text-center text-dark">134.02 sq miles</td>
-                  <td class="text-center text-dark">$10k</td>
-                  <td class="text-center text-dark">1 year</td>
-                 <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark"> 10/10/2018</td>
-                  <td class="text-center text-dark"> Active</td>
-
-                </tr>
-                   <tr>
-                   <th class="text-center table-light text-dark"><a href="orderofchicago.php">4</th>
-                  <td class="text-center text-dark"><a href="orderofchicago.php">Chicago</td>
-                  <td class="text-center text-dark">227.63 sq miles</td>
-                  <td class="text-center text-dark">$10k</td>
-                  <td class="text-center text-dark">1 year</td>
-              <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark"> 10/10/2018</td>
-                  <td class="text-center text-dark"> Active</td>
-
-                </tr>
-                   <tr>
-                   <th class="text-center text-dark"><a href="orderofdenver.php">5</th>
-                  <td class="text-center text-dark"><a href="orderofdenver.php">Denver</td>
-                  <td class="text-center text-dark">154.97</td>
-                  <td class="text-center text-dark">$10k</td>
-                  <td class="text-center text-dark">1 year</td>
-                 <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark"> 10/10/2018</td>
-                  <td class="text-center text-dark"> Active</td>
-
-                   <tr>
-                   <th class="text-center table-light text-dark"><a href="orderofindy.php">6</th>
-                  <td class="text-center text-dark"><a href="orderofindy.php">Indianapolis</td>
-                  <td class="text-center text-dark">368.15 sq miles</td>
-                  <td class="text-center text-dark">$10k</td>
-                  <td class="text-center text-dark">1 year</td>
-                 <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark"> 10/10/2018</td>
-                  <td class="text-center text-dark"> Active</td>
-
-                </tr>   <tr>
-                   <th class="text-center text-dark"><a href="orderofnashville.php">7</th>
-                  <td class="text-center text-dark"><a href="orderofnashville.php">Nashville</td>
-                  <td class="text-center text-dark">525.94 sq miles</td>
-                  <td class="text-center text-dark">$10k</td>
-                  <td class="text-center text-dark">1 year</td>
-                  <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark">100</td>
-				  <td class="text-center text-dark"> 10/10/2018</td>
-                  <td class="text-center text-dark"> Active</td>
-
-                </tr>
+              <?php 
+                } 
+              ?>
               </tbody>
             </table>
           </div>
