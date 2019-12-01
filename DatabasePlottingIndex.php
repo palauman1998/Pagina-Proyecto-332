@@ -190,9 +190,9 @@ function filterTable($query, $conn)
 ?>
 
 <form action="DatabasePlottingIndex.php" method="post">
-            Sensor Number <input type="text" name="sensorIDToSearch" placeholder="Sensor ID"><br><br>
+Sensor Number <input type="text" name="sensorIDToSearch" placeholder="Sensor ID"><br><br>
 <!--<input type="submit" name="search" value="Search by Sensor"><br><br>-->
-            Start Date / Time <input type="datetime" name = "startDateToSearch" placeholder="2017-11-01 06:00:00" /><br><br>
+Start Date / Time <input type="datetime" name = "startDateToSearch" placeholder="2017-11-01 06:00:00" /><br><br>
 End Date / Time <input type="datetime" name = "endDateToSearch" placeholder="2019-11-01 06:00:00" /><br><br>
 <!--<input type="submit" name="datesearch" value="Search by Date"><br><br>-->
 <input type="submit" name="search" value="Search" onclick="drawChart();"><br><br>
@@ -413,44 +413,7 @@ if (strlen($query)>0) echo "<p>The SQL query is: '$query'</p>";
             </table>
           </div>
 
-		      <h2 class="sub-header">Air Quality Monitoring from Mobile Sensors</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-         <th class="text-center">Mobile Sensor ID</th>
-				<th class="text-center">Date</th>
-                  <th class="text-center">Time</th>
-				  <th class="text-center">Sensor Latitude</th>
-                  <th class="text-center">Sensor Longitude</th>
-                  <th class="text-center">Temperature</th>
-                  <th class="text-center">Pressure</th>
-                  <th class="text-center">Humidity</th>
-                  <th class="text-center">PM1</th>
-                  <th class="text-center">PM2.5</th>
-                  <th class="text-center">PM10</th>
-                  <th class="text-center">Air Quality Performance</th>
-                </tr>
-              </thead>
-              <tbody>
-                   <tr>
-                  <th class="text-center table-light text-dark">1</th>
-                  <td class="text-center text-dark">2018/10/25</td>
-				   <td class="text-center text-dark">01:00</td>
-				    <td class="text-center text-dark">10</td>
-                  <td class="text-center text-dark">20</td>
-				   <td class="text-center text-dark">10</td>
-				    <td class="text-center text-dark">5</td>
-					 <td class="text-center text-dark">30</td>
-                  <td class="text-center text-dark">10</td>
-                  <td class="text-center text-dark">10</td>
-                  <td class="text-center text-dark">110</td>
-                  <td class="text-center text-dark"> Good</td>
-                </tr>
 
-              </tbody>
-            </table>
-          </div>
 
         </div>
       </div>
