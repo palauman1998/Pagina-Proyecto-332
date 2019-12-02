@@ -121,10 +121,12 @@ if(isset($_POST['search']))
 
         if (strlen($startDateToSearch) > 0) {
           $andINIT = " AND DateTime >= '$startDateToSearch'";
+          $andINITR = " AND R.DateTime >= '$startDateToSearch'";
         }
 
         if (strlen($endDateToSearch) > 0) {
           $andEND = " AND DateTime <= '$endDateToSearch'";
+          $andENDR = " AND R.DateTime <= '$endDateToSearch'";
         }
 
         //For the Map
@@ -157,7 +159,7 @@ if(isset($_POST['search']))
       FROM Readings R 
       INNER JOIN Sensors S ON R.SensorID = S.SensorID
       INNER JOIN Fixed_Sensors FS ON FS.SensorID = R.SensorID
-      WHERE S.cityID = ".$cityID.$andSENSORID.$andINIT.$andEND;
+      WHERE S.cityID = ".$cityID.$andSENSORID.$andINIT.$andEND. " LIMIT 0,1000";
 
       //For Mobile Table
       $query2 =  "SELECT R.SensorID, R.DateTime as 'Time', R.Temperature, R.Pressure, R.Humidity, R.PM1, R.PM2_5, R.PM10, MS.LAT, MS.LONGG, CASE
@@ -176,8 +178,9 @@ if(isset($_POST['search']))
       FROM Readings R 
       INNER JOIN Sensors S ON R.SensorID = S.SensorID
       INNER JOIN Mobile_Sensors MS ON MS.SensorID = R.SensorID
-      WHERE S.cityID = ".$cityID.$andSENSORID.$andINIT.$andEND;
+      WHERE S.cityID = ".$cityID.$andSENSORID.$andINITR.$andENDR. " LIMIT 0,1000";
 
+      //echo $query2;
       //Sensor Type 
       if(isset($_POST['type'])) 
       {
@@ -190,13 +193,13 @@ if(isset($_POST['search']))
       $chartQuery = "SELECT " . $column. ", UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) AS DateTime FROM Readings WHERE 1=1 ".$andSENSORIDG.$andINIT.$andEND." GROUP BY UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) ORDER BY DateTime";
       
       //Graph Type Filter
-      if(isset($_POST['gtype'])) 
+      /*if(isset($_POST['gtype'])) 
       {
         if (isset($_POST['gtype']) == 'avg')
         {
-            $chartQuery = "SELECT AVG(". $column.") as ".$column.",  UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) AS DateTime FROM Readings WHERE 1=1 ".$andSENSORIDG.$andINIT.$andEND." GROUP BY UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) ORDER BY DateTime";
+            $chartQuery = "SELECT " . $column. ", UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) AS DateTime FROM Readings WHERE 1=1 ".$andSENSORIDG.$andINIT.$andEND." GROUP BY UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) ORDER BY DateTime";
         }
-      }
+      }*/
     
       //echo $chartQuery;
 
@@ -223,6 +226,8 @@ if(isset($_POST['search']))
       }
       $table['rows'] = $rows;
       $jsonTable = json_encode($table);
+      //echo 'hola';
+      //echo $jsonTable;
 
 ?>
 <form action="orderofcity.php?cityID=<?php echo $cityID?>" method="post">
@@ -437,7 +442,7 @@ if(isset($_POST['sensorIDToSearch'])) { echo $_POST['gtype'].'<br/>'; }
     function drawChart()
     {
       var data = new google.visualization.DataTable(<?php echo $jsonTable; ?>);
-
+      //alert (data);
       var options = {
       title:'Sensors Data',
       legend:{position:'bottom'},
