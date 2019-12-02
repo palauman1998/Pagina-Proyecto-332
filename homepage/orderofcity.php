@@ -141,14 +141,38 @@ if(isset($_POST['search']))
 }
 
       //For Fixed Table
-      $query1 =  "SELECT R.SensorID, R.DateTime as 'Time', R.Temperature, R.Pressure, R.Humidity, R.PM1, R.PM2_5, R.PM10, FS.LAT, FS.LONGG, 'Good' as 'Quality'
+      $query1 =  "SELECT R.SensorID, R.DateTime as 'Time', R.Temperature, R.Pressure, R.Humidity, R.PM1, R.PM2_5, R.PM10, FS.LAT, FS.LONGG, CASE
+      WHEN PM10 <= 15 AND PM2_5 <= 10 THEN 'Very Low'
+        WHEN PM10 <= 30 AND PM2_5 <= 20 THEN 'Low'
+        WHEN PM10 <= 50 AND PM2_5 <= 30 THEN 'Medium'
+        WHEN PM10 <= 100 AND PM2_5 <= 60 THEN 'High'
+        WHEN PM10 <= 100 AND PM2_5 <= 60 THEN 'Very High'
+        WHEN PM10 <= 15 OR PM2_5 <= 10 THEN 'Very Low'
+        WHEN PM10 <= 30 OR PM2_5 <= 20 THEN 'Low'
+        WHEN PM10 <= 50 OR PM2_5 <= 30 THEN 'Medium'
+        WHEN PM10 <= 100 OR PM2_5 <= 60 THEN 'High'
+        WHEN PM10 <= 100 OR PM2_5 <= 60 THEN 'Very High'
+        ELSE ' - '
+    END as 'Quality'
       FROM Readings R 
       INNER JOIN Sensors S ON R.SensorID = S.SensorID
       INNER JOIN Fixed_Sensors FS ON FS.SensorID = R.SensorID
       WHERE S.cityID = ".$cityID.$andSENSORID.$andINIT.$andEND;
 
       //For Mobile Table
-      $query2 =  "SELECT R.SensorID, R.DateTime as 'Time', R.Temperature, R.Pressure, R.Humidity, R.PM1, R.PM2_5, R.PM10, MS.LAT, MS.LONGG, 'Good' as 'Quality'
+      $query2 =  "SELECT R.SensorID, R.DateTime as 'Time', R.Temperature, R.Pressure, R.Humidity, R.PM1, R.PM2_5, R.PM10, MS.LAT, MS.LONGG, CASE
+      WHEN PM10 <= 15 AND PM2_5 <= 10 THEN 'Very Low'
+        WHEN PM10 <= 30 AND PM2_5 <= 20 THEN 'Low'
+        WHEN PM10 <= 50 AND PM2_5 <= 30 THEN 'Medium'
+        WHEN PM10 <= 100 AND PM2_5 <= 60 THEN 'High'
+        WHEN PM10 <= 100 AND PM2_5 <= 60 THEN 'Very High'
+        WHEN PM10 <= 15 OR PM2_5 <= 10 THEN 'Very Low'
+        WHEN PM10 <= 30 OR PM2_5 <= 20 THEN 'Low'
+        WHEN PM10 <= 50 OR PM2_5 <= 30 THEN 'Medium'
+        WHEN PM10 <= 100 OR PM2_5 <= 60 THEN 'High'
+        WHEN PM10 <= 100 OR PM2_5 <= 60 THEN 'Very High'
+        ELSE ' - '
+    END as 'Quality'
       FROM Readings R 
       INNER JOIN Sensors S ON R.SensorID = S.SensorID
       INNER JOIN Mobile_Sensors MS ON MS.SensorID = R.SensorID
