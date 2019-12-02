@@ -1,14 +1,14 @@
 <?php 
 //Database Connection Credentials
-/*$servername = "mydb.itap.purdue.edu";
+$servername = "mydb.itap.purdue.edu";
 $username = "g1109686";
 $password = "Algorithm12345";
-$dbname = "g1109686";*/
+$dbname = "g1109686";
 
-$servername = "localhost";
+/*$servername = "localhost";
 $username = "root";
 $password = "puntonet";
-$dbname = "pagina32";
+$dbname = "pagina32";*/
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

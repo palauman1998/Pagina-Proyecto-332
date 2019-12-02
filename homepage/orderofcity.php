@@ -5,6 +5,7 @@ include_once 'includes/mysql.php';
 <?php
 $FName = $_SESSION['FName'];
 $LName = $_SESSION['LName'];
+
 ?>
 
 <html lang="en">
@@ -89,7 +90,7 @@ $LName = $_SESSION['LName'];
 	</nav>
   
 <?php
-
+//Global Var
 $cityID = 0;
 $andSENSORID = "";
 $andSENSORIDG = "";
@@ -97,6 +98,7 @@ $andINIT = "";
 $andEND = "";
 $type = '1';
 
+//CityID Validation
 if (!isset($_GET['cityID'])){
     //Redirect to pastorder if cityID parameter
     header("Location: pastorder.php");
@@ -104,7 +106,6 @@ if (!isset($_GET['cityID'])){
   $cityID = $_GET['cityID'];
   $querycity = "SELECT CityName, State from Projects where cityID = " . $cityID;
 }
-
 
 if(isset($_POST['search'])) 
 {
@@ -139,27 +140,32 @@ if(isset($_POST['search']))
 
 }
 
+      //For Fixed Table
       $query1 =  "SELECT R.SensorID, R.DateTime as 'Time', R.Temperature, R.Pressure, R.Humidity, R.PM1, R.PM2_5, R.PM10, FS.LAT, FS.LONGG, 'Good' as 'Quality'
       FROM Readings R 
       INNER JOIN Sensors S ON R.SensorID = S.SensorID
       INNER JOIN Fixed_Sensors FS ON FS.SensorID = R.SensorID
       WHERE S.cityID = ".$cityID.$andSENSORID.$andINIT.$andEND;
 
+      //For Mobile Table
       $query2 =  "SELECT R.SensorID, R.DateTime as 'Time', R.Temperature, R.Pressure, R.Humidity, R.PM1, R.PM2_5, R.PM10, MS.LAT, MS.LONGG, 'Good' as 'Quality'
       FROM Readings R 
       INNER JOIN Sensors S ON R.SensorID = S.SensorID
       INNER JOIN Mobile_Sensors MS ON MS.SensorID = R.SensorID
       WHERE S.cityID = ".$cityID.$andSENSORID.$andINIT.$andEND;
 
+      //Sensor Type 
       if(isset($_POST['type'])) 
       {
-        $column = $_POST['type'];
+        $column = $_POST['type']; // Take the column name, table Readings
       }  else {
-        $column = 'Temperature';
+        $column = 'Temperature'; //If Sensor Type is null Then Temperature is the default
       }
 
-
-      $chartQuery = "SELECT " . $column. ", UNIX_TIMESTAMP(CONCAT_WS('',DateTime)) AS DateTime FROM Readings WHERE 1=1 ".$andSENSORIDG.$andINIT.$andEND." ORDER BY DateTime";
+      // Pending Group by Month:: ANDY
+      $chartQuery = "SELECT " . $column. ", UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) AS DateTime FROM Readings WHERE 1=1 ".$andSENSORIDG.$andINIT.$andEND." GROUP BY UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) ORDER BY DateTime";
+      
+      //Graph Type Filter
       if(isset($_POST['gtype'])) 
       {
         if (isset($_POST['gtype']) == 'avg')
@@ -168,7 +174,7 @@ if(isset($_POST['search']))
         }
       }
     
-      echo $chartQuery;
+      //echo $chartQuery;
 
       $result = mysqli_query($conn, $chartQuery) or die(mysqli_error($conn));
 

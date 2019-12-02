@@ -3,10 +3,14 @@ session_start();
 ?>
 
 <?php
-$servername = "localhost";
+/*$servername = "localhost";
 $username = "root";
 $password = "puntonet";
-$dbname = "pagina";
+$dbname = "pagina";*/
+$servername = "mydb.itap.purdue.edu";
+$username = "g1109686";
+$password = "Algorithm12345";
+$dbname = "g1109686";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -34,14 +38,14 @@ if ($result->num_rows > 0) {
 					</script>";
 				$_SESSION['FName'] = $row["FName"];
 				$_SESSION['LName'] = $row["LName"];
-				header("location:https://web.ics.purdue.edu/~g1109686/homepage/homepage.php");
+				header("location:homepage.php");
 
 			}
 			else{
 				echo "<script type='text/javascript'>
 							alert('Information Incorrect. Please Try Again.');
 					</script>";
-					header("refresh:1; url=https://web.ics.purdue.edu/~g1109686/homepage/signin.php");
+					header("refresh:1; url=signin.php");
 			}
 
 		}
@@ -50,7 +54,7 @@ else{
 				echo "<script type='text/javascript'>
 							alert('Information Incorrect. Please Try Again.');
 					</script>";
-				header("refresh:1; url=https://web.ics.purdue.edu/~g1109686/homepage/signin.php");
+				header("refresh:1; url=signin.php");
 			}
 
 $conn->close();
