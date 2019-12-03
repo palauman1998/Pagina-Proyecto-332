@@ -1,0 +1,165 @@
+html{
+  background-color: #ECF0F1!important;
+	z-index: -1;
+	overflow: hidden;
+}
+body{
+	background-color: #ECF0F1!important;
+}
+/* ---- reset ---- */
+
+body {
+  margin: 0;
+  font:normal 75% Arial, Helvetica, sans-serif;
+}
+
+canvas {
+  
+  vertical-align: bottom;
+}
+
+/* ---- particles.js container ---- */
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #9aabd4;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+/* ---- stats.js ---- */
+
+.count-particles{
+  background: #000022;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  width: 80px;
+  color: #13E8E9;
+  font-size: .8em;
+  text-align: left;
+  text-indent: 4px;
+  line-height: 14px;
+  padding-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+
+.js-count-particles{
+  font-size: 1.1em;
+}
+
+#stats,
+.count-particles{
+  -webkit-user-select: none;
+}
+
+#stats{
+  border-radius: 3px 3px 0 0;
+  overflow: hidden;
+}
+
+.count-particles{
+  border-radius: 0 0 3px 3px;
+}
+
+
+
+
+
+
+
+#logo1{
+position:absolute;
+}
+
+
+.container1{
+  width: 50vw;
+  margin-left: 25vw;
+  margin-top: 7vh;
+}
+
+.logo{
+	width:200px;
+	height: 200px;
+	z-index: 10;
+	margin-left:-65px;
+}
+
+.enter{
+  margin-right: 300px;
+}
+
+h1{
+  font-size: 50px!important;
+}
+
+
+
+.landingpage{
+	background-color: #ECF0F1!important;
+}
+
+.container2{
+	width: 40%;
+	top: 50%;
+	float: left;
+}
+
+.container3{
+	width: 50%;
+	top: 50%;
+	float: right;
+	padding-left: 10%;
+	border-left: 2px solid black;
+}
+
+.budget_desc{
+	padding-right: 5px;
+}
+
+.radio_option{
+	margin-left: 10px;
+}
+
+.budget_number{
+	height: 200px;
+	width: 400px;
+	margin-left: 50%;
+	background-color: #DED8D8;
+}
+
+.budget_body{
+	display: flex!important;
+
+}
+
+.group{
+	margin-top: 50%;
+}
+.logoutLblPos{
+
+   position:fixed;
+   right:10px;
+   top:5px;
+}
+
+.container4{
+	width: 40%;
+	top: 50%;
+	float: left;
+}
+
+.container5{
+	width: 50%;
+	top: 50%;
+	float: right;
+	padding-left: 10%;
+	border-left: 2px solid black;
+}
+

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Forget</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/createaccount.css" rel="stylesheet">
+    <script src="ie-emulation-modes-warning.js"></script>
+  </head>
+
+  <body>
+	<div class="container2">
+		<center>
+		<div class="logo">
+		<img src="images/logo.png" alt="" class="logo">
+		</div>
+	</div>
+	<div class="container1">
+    <!--Update Password by php file-->
+            <form class="form-horizontal" role="form" action="forget.php" method="post"><center>
+                <h2>Forget Password</h2>
+				<h3>Please fill in this form.</h3>
+                <div class="form-group">
+                    <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="firstName" placeholder="First Name" class="form-control" autofocus>
+
+                    </div>
+                </div>
+				 <div class="form-group">
+                    <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="lastName" placeholder="Last Name" class="form-control" autofocus>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="email" name="email" placeholder="Email" class="form-control">
+                    </div>
+                </div>
+
+				<div class="form-group">
+                    <label for="accountnumber" class="col-sm-3 control-label">Account number</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="accountnumber" placeholder="Account number" class="form-control">
+                    </div>
+                </div>
+
+					<div class="form-group">
+                    <label for="newpassword" class="col-sm-3 control-label">New Password</label>
+                    <div class="col-sm-9">
+                        <input type="password" name="newpassword" placeholder="New Password" class="form-control">
+                    </div>
+                </div>
+
+                <input type="submit" value="Submit" />
+                </form>
+
+            </form> <!-- /form -->
+        </div> <!-- ./container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
