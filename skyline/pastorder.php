@@ -62,8 +62,18 @@ $LName = $_SESSION['LName'];
 <br>
 <br>
 
-<?php
-$query = "SELECT P.CityID, P.CityName, '0 miles' as Total, P.Budget, P.Duration, COUNT(S.SensorID) as 'Fixed Sensor Numbers', (CASE WHEN M.Mobile IS NULL THEN 0 ELSE M.Mobile END ) as 'Mobile Sensor Numbers', DATE_FORMAT(P.StartDate, '%m/%d/%Y') as StartDate, 'Active' as Status
+<?php //Los Angeles = 1300 Denver = 401 Indianapolis: 963, Nashville = 1360, Chicago = 606, Atlanta = 343 , Miami = 143
+$query = "SELECT P.CityID, P.CityName,
+ CASE
+  WHEN P.CityID = 1 THEN '1,300'
+  WHEN P.CityID = 2 THEN '401'
+  WHEN P.CityID = 3 THEN '963'
+  WHEN P.CityID = 4 THEN '1,360'
+  WHEN P.CityID = 5 THEN '606'
+  WHEN P.CityID = 6 THEN '343'
+  WHEN P.CityID = 7 THEN '143'
+END
+ as Total, P.Budget, P.Duration, COUNT(S.SensorID) as 'Fixed Sensor Numbers', (CASE WHEN M.Mobile IS NULL THEN 0 ELSE M.Mobile END ) as 'Mobile Sensor Numbers', DATE_FORMAT(P.StartDate, '%m/%d/%Y') as StartDate, 'Active' as Status
 FROM Projects P 
 INNER JOIN Sensors S ON P.CityID = S.CityID 
 LEFT JOIN 
@@ -87,9 +97,9 @@ $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
                <tr>
                   <th class="text-center">Project ID</th>
                   <th class="text-center">City Name</th>
-                   <th class="text-center">Total Area</th>
-                  <th class="text-center">Budget</th>
-                  <th class="text-center">Duration</th>
+                   <th class="text-center">Total Area (KM <sup>2</sup>)</th>
+                  <th class="text-center">Budget (USD)</th>
+                  <th class="text-center">Duration (Years)</th>
                   <th class="text-center">Fixed Sensor Numbers</th>
 				   <th class="text-center">Mobile Sensor Numbers</th>
 				   <th class="text-center">Start Date</th>

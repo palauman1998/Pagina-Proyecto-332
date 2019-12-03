@@ -107,6 +107,9 @@ if (!isset($_GET['cityID'])){
 }else{
   $cityID = $_GET['cityID'];
   $querycity = "SELECT CityName, State from Projects where cityID = " . $cityID;
+  $queryRangeDateCity = "SELECT StartDate, '2019-12-10 00:00:00' as 'EndDate' from Projects where cityID = " . $cityID;
+  $queryRangeSensor = "SELECT MAX(S.SensorID) as 'EndSensor', MIN(S.SensorID) as 'StartSensor' FROM Sensors S INNER JOIN Fixed_Sensors F ON S.SensorID = F.SensorID WHERE S.CityID = ". $cityID;
+  $queryRangeSensorM = "SELECT MAX(S.SensorID) as 'EndSensor', MIN(S.SensorID) as 'StartSensor' FROM Sensors S INNER JOIN Mobile_Sensors M ON S.SensorID = M.SensorID WHERE S.CityID = ". $cityID;
 }
 
 if(isset($_POST['search'])) 
@@ -192,7 +195,7 @@ if(isset($_POST['search']))
       }
 
       // Pending Group by Month:: ANDY
-      $chartQuery = "SELECT " . $column. ", UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) AS DateTime FROM Readings WHERE 1=1 ".$andSENSORIDG.$andINIT.$andEND." GROUP BY UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')), " . $column. " ORDER BY DateTime";
+      $chartQuery = "SELECT " . $column. ", UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) AS DateTime FROM Readings WHERE 1=1 ".$andSENSORIDG.$andINIT.$andEND." GROUP BY UNIX_TIMESTAMP(DATE_FORMAT(DateTime, '%Y-%m-%d 00:00:00')) ORDER BY DateTime";//
       
       //Graph Type Filter
       /*if(isset($_POST['gtype'])) 
@@ -232,9 +235,26 @@ if(isset($_POST['search']))
       //echo $jsonTable;
 
 ?>
+<?php 
+$resultCity = mysqli_query($conn, $querycity) or die(mysqli_error($conn));
+$resultCityRangeDate = mysqli_query($conn, $queryRangeDateCity) or die(mysqli_error($conn));
+$resultCityRangeSensor = mysqli_query($conn, $queryRangeSensor) or die(mysqli_error($conn));
+$resultCityRangeSensorM = mysqli_query($conn, $queryRangeSensorM) or die(mysqli_error($conn));
+$rowcity = $resultCity->fetch_array(MYSQLI_ASSOC);
+$rowcityRangeDate = $resultCityRangeDate->fetch_array(MYSQLI_ASSOC);
+$rowcityRangeSensor = $resultCityRangeSensor->fetch_array(MYSQLI_ASSOC);
+$rowcityRangeSensorM = $resultCityRangeSensorM->fetch_array(MYSQLI_ASSOC);
+
+?>
 <form action="orderofcity.php?cityID=<?php echo $cityID?>" method="post">
+<label> Range Fixed Sensors: <?php echo $rowcityRangeSensor['StartSensor']; ?> to  <?php echo $rowcityRangeSensor['EndSensor']; ?></label>
+<br/>
+<label> Range Mobile Sensors: <?php echo $rowcityRangeSensorM['StartSensor']; ?> to  <?php echo $rowcityRangeSensorM['EndSensor']; ?></label>
+<br/>
 Sensor Number <input type="text" name="sensorIDToSearch" placeholder="Sensor ID"><br><br>
 <!--<input type="submit" name="search" value="Search by Sensor"><br><br>-->
+<label> Range Date Available: <?php echo $rowcityRangeDate['StartDate']; ?> to  <?php echo $rowcityRangeDate['EndDate']; ?></label>
+<br/>
 Start Date / Time <input type="datetime" name = "startDateToSearch" placeholder="2017-11-01 06:00:00" /><br><br>
 End Date / Time <input type="datetime" name = "endDateToSearch" placeholder="2019-11-01 06:00:00" /><br><br>
 Sensor Type <select name="type">
@@ -259,17 +279,18 @@ if(isset($_POST['sensorIDToSearch'])) { echo $_POST['endDateToSearch'].'<br/>'; 
 if(isset($_POST['sensorIDToSearch'])) { echo $_POST['type'].'<br/>'; }
 if(isset($_POST['sensorIDToSearch'])) { echo $_POST['gtype'].'<br/>'; }
 ?>
-          <?php 
-          $resultCity = mysqli_query($conn, $querycity) or die(mysqli_error($conn));
-          $rowcity = $resultCity->fetch_array(MYSQLI_ASSOC);
-          ?>
+
           <h1 style="text-align:center;"><?php echo $rowcity['CityName']; ?> - <?php echo $rowcity['State']; ?></h1>
           <?php 
           //echo  $query1;
           $result1 = mysqli_query($conn, $query1) or die(mysqli_error($conn));
           ?>
-          <div id="map"></div>
-          <iframe src="iframe.php" width="500" height="500" frameborder="0"></iframe>
+          <div class="containermap">
+            <!--div id="map"></div-->
+          </div>
+          <div class="containeriframe">
+            <iframe src="iframe.php?cityID=<?php echo $cityID; ?>" width="100%" height="600" frameborder="0"></iframe>
+          </div>
           <div class="page-wrapper">
           <br />
             <div id="line_chart" style="width: 100%; height: 500px"></div>
@@ -281,14 +302,14 @@ if(isset($_POST['sensorIDToSearch'])) { echo $_POST['gtype'].'<br/>'; }
               </thead>
               <tbody>
               <tr>
-                  <td class="text-center">Fixed Sensor ID</th> 
+                  <td class="text-center">Mobile Sensor ID</th> 
                   <td class="text-center">Date and Time</th>
-                  <td class="text-center">Temperature (°C)</th>
                   <td class="text-center">Pressure (hPa)</th>
                   <td class="text-center">Humidity (%)</th>
-                  <td class="text-center">PM1</th>
+                  <td class="text-center">Temperature (°C)</th>
                   <td class="text-center">PM2.5</th>
                   <td class="text-center">PM10</th>
+                  <td class="text-center">PM1</th>
                   <td class="text-center">Latitude</th>
                   <td class="text-center">Longitude</th>
                   <td class="text-center">Air Quality Performance</th>
@@ -327,12 +348,12 @@ if(isset($_POST['sensorIDToSearch'])) { echo $_POST['gtype'].'<br/>'; }
               <tr>
                   <td class="text-center">Mobile Sensor ID</th> 
                   <td class="text-center">Date and Time</th>
-                  <td class="text-center">Temperature (°C)</th>
                   <td class="text-center">Pressure (hPa)</th>
                   <td class="text-center">Humidity (%)</th>
-                  <td class="text-center">PM1</th>
+                  <td class="text-center">Temperature (°C)</th>
                   <td class="text-center">PM2.5</th>
                   <td class="text-center">PM10</th>
+                  <td class="text-center">PM1</th>
                   <td class="text-center">Latitude</th>
                   <td class="text-center">Longitude</th>
                   <td class="text-center">Air Quality Performance</th>
@@ -371,6 +392,7 @@ if(isset($_POST['sensorIDToSearch'])) { echo $_POST['gtype'].'<br/>'; }
     };
 
     function initMap() {
+      return false;
       _locations = [
       <?php while($rowmap = mysqli_fetch_array($resultmap)) {?>
         ['<?php echo $rowmap['DateTime'] ?>', <?php echo $rowmap['LAT'] ?>, <?php echo $rowmap['LONGG'] ?>],

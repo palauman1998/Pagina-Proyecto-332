@@ -7,7 +7,7 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="orders.css" rel="stylesheet">
+    <!--link href="orders.css" rel="stylesheet"-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="ie-emulation-modes-warning.js"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -16,8 +16,8 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 500px;
-		width: 500px;
+        height: 600px;
+        width: 100%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -34,27 +34,29 @@
 
 include_once 'includes/mysql.php';
 
+$lat= 0;
+$long = 0;
+$cityid = $_GET["cityID"];
 
-$mobile_query = "SELECT DateTime, LAT, LONGG, ZoneType, M.SensorID FROM Mobile_Sensors M INNER JOIN Sensors S ON M.SensorID = S.SensorID WHERE S.CityID = 1";
+$mobile_query = "SELECT DateTime, LAT, LONGG, ZoneType, M.SensorID FROM Mobile_Sensors M INNER JOIN Sensors S ON M.SensorID = S.SensorID WHERE S.CityID = " . $cityid;
 $mobile_result = mysqli_query($connect, $mobile_query);
-$mobile_readings = "SELECT M.DateTime, LAT, LONGG, ZoneType, R.SensorID, ROUND(Pressure, 2) as Pressure, ROUND(Humidity, 2) as Humidity, ROUND(Temperature, 2) as Temperature, ROUND(PM2_5, 2) as PM2_5, ROUND(PM10, 2) as PM10, ROUND(PM1, 2) as PM1 FROM Mobile_Sensors M INNER JOIN Sensors S ON M.SensorID = S.SensorID INNER JOIN Readings R ON M.SensorID = R.SensorID WHERE S.CityID = 1 LIMIT 30";
+/*$mobile_readings = "SELECT M.DateTime, LAT, LONGG, ZoneType, R.SensorID, ROUND(Pressure, 2) as Pressure, ROUND(Humidity, 2) as Humidity, ROUND(Temperature, 2) as Temperature, ROUND(PM2_5, 2) as PM2_5, ROUND(PM10, 2) as PM10, ROUND(PM1, 2) as PM1 FROM Mobile_Sensors M INNER JOIN Sensors S ON M.SensorID = S.SensorID INNER JOIN Readings R ON M.SensorID = R.SensorID WHERE S.CityID = 1 LIMIT 30";
 $mobile_readings_result = mysqli_query($connect, $mobile_readings);
 $fixed_readings = "SELECT R.DateTime, LAT, LONGG, ZoneType, R.SensorID, ROUND(Pressure, 2) as Pressure, ROUND(Humidity, 2) as Humidity, ROUND(Temperature, 2) as Temperature, ROUND(PM2_5, 2) as PM2_5, ROUND(PM10, 2) as PM10, ROUND(PM1, 2) as PM1 FROM Fixed_Sensors M INNER JOIN Sensors S ON M.SensorID = S.SensorID INNER JOIN Readings R ON M.SensorID = R.SensorID WHERE S.CityID = 1 LIMIT 30";
-$fixed_readings_result = mysqli_query($connect, $fixed_readings);
-
-
+$fixed_readings_result = mysqli_query($connect, $fixed_readings);*/
 
 
 if(isset($_POST['mobileDate']))
 {
   $date = $_POST['mobileDate'];
-  $mobile_time_query = "SELECT DateTime, LAT, LONGG, ZoneType, M.SensorID FROM Mobile_Sensors M INNER JOIN Sensors S ON M.SensorID = S.SensorID WHERE S.CityID = 1 AND DateTime = '$date'";
+  $mobile_time_query = "SELECT DateTime, LAT, LONGG, ZoneType, M.SensorID FROM Mobile_Sensors M INNER JOIN Sensors S ON M.SensorID = S.SensorID WHERE S.CityID = ".$cityid." AND DateTime = '$date'";
   $mobile_time_result = mysqli_query($connect, $mobile_time_query);
   //echo $date;
   // while($row = mysqli_fetch_array($mobile_time_result)):
   //   echo $row['DateTime'];
   // endwhile;
   }
+
 ?>
 
 <div class="container2">
@@ -79,6 +81,42 @@ if(isset($_POST['mobileDate']))
 
 </div>
 
+<?php 
+
+switch ($cityid)
+{
+  case '1':
+    $lat= '34.0522';
+    $long = '-118.2437';
+    break;
+    case '2':
+    $lat= '39.7392';
+    $long = '-104.9903';
+    break;
+    case '3':
+    $lat= '39.7684';
+    $long = '-86.1581';
+    break;
+    case '4':
+    $lat= '36.1627';
+    $long =  '-86.7816';
+    break;
+    case '5':
+    $lat= '41.8781';
+    $long = '-87.6298';
+    break;
+    case '6':
+    $lat= '33.7490';
+    $long = '-84.3880';
+    break;
+    case '7':
+    $lat= '25.7617';
+    $long = '-80.19180';
+    break;
+}
+$coordenate= $lat.','.$long;
+
+?>
 
 <script>
 var customLabel = {
@@ -91,10 +129,9 @@ label: 'B'
 };
 
 var map;
-
 function initMap() {
 map = new google.maps.Map(document.getElementById('map'), {
-center: new google.maps.LatLng(34.0522, -118.2437),
+center: new google.maps.LatLng(<?php echo $coordenate; ?>),
 zoom: 12
 });
 var infoWindow = new google.maps.InfoWindow;
