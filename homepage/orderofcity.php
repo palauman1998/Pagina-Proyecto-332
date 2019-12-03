@@ -142,9 +142,9 @@ if(isset($_POST['search']))
 
 }
 
-      //For Fixed Table
+      //For Fixed Table <-- Very Low = Perfect Air Quality, Low = Good Air Quality,  Medium = Quality Could Be Better, High = Poor Air Quality, Very High = Dangerous Air Quality-->
       $query1 =  "SELECT R.SensorID, R.DateTime as 'Time', R.Temperature, R.Pressure, R.Humidity, R.PM1, R.PM2_5, R.PM10, FS.LAT, FS.LONGG, CASE
-      WHEN PM10 <= 15 AND PM2_5 <= 10 THEN 'Very Low'
+      WHEN PM10 <= 15 AND PM2_5 <= 10 THEN 'Very Low' 
         WHEN PM10 <= 30 AND PM2_5 <= 20 THEN 'Low'
         WHEN PM10 <= 50 AND PM2_5 <= 30 THEN 'Medium'
         WHEN PM10 <= 100 AND PM2_5 <= 60 THEN 'High'
@@ -201,7 +201,7 @@ if(isset($_POST['search']))
         }
       }*/
     
-      //echo $chartQuery;
+      echo $chartQuery;
 
       $result = mysqli_query($conn, $chartQuery) or die(mysqli_error($conn));
 
