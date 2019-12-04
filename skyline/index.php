@@ -169,7 +169,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     }
   }
 
-  //header("Location: pastorder.php");
+  header("Location: index.php?saved=true");
+
 
 }
 
@@ -479,6 +480,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
       </div>
     </form>
     </section>
+     
+    <?php if (isset($_GET['saved'])) { ?>
+    <div class="alert alert-warning alert-dismissible fade show hidden" id="popup" role="alert" style="z-index: 999;">
+      <strong>Order has been placed.</strong><br> We will get back to you in the next 2-4 weeks. Thank you for your patience! We are really excited to be working with you!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <?php } ?>
+
 	 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
      <script src='https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js'></script>
    <script src="js/script.js"></script>

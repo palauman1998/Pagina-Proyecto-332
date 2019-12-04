@@ -247,39 +247,75 @@ $rowcityRangeSensorM = $resultCityRangeSensorM->fetch_array(MYSQLI_ASSOC);
 
 ?>
 <form action="orderofcity.php?cityID=<?php echo $cityID?>" method="post">
-<label> Range Fixed Sensors: <?php echo $rowcityRangeSensor['StartSensor']; ?> to  <?php echo $rowcityRangeSensor['EndSensor']; ?></label>
-<br/>
-<label> Range Mobile Sensors: <?php echo $rowcityRangeSensorM['StartSensor']; ?> to  <?php echo $rowcityRangeSensorM['EndSensor']; ?></label>
-<br/>
-Sensor Number <input type="text" name="sensorIDToSearch" placeholder="Sensor ID"><br><br>
-<!--<input type="submit" name="search" value="Search by Sensor"><br><br>-->
-<label> Range Date Available: <?php echo $rowcityRangeDate['StartDate']; ?> to  <?php echo $rowcityRangeDate['EndDate']; ?></label>
-<br/>
-Start Date / Time <input type="datetime" name = "startDateToSearch" placeholder="2017-11-01 06:00:00" /><br><br>
-End Date / Time <input type="datetime" name = "endDateToSearch" placeholder="2019-11-01 06:00:00" /><br><br>
-Sensor Type <select name="type">
-  <option value="Temperature" selected>Temperature</option>
-  <option value="Pressure">Pressure</option>
-  <option value="Humidity">Humidity</option>
-  <option value="PM1">PM 1</option>
-  <option value="PM2_5">PM 2.5</option>
-  <option value="PM10">PM 10</option>
-</select><br><br>
-Graph Type   <select name="gtype">
-  <option value="detail" selected>Detail</option>
-  <option value="avg">Average</option>
-</select><br><br>
-<!--<input type="submit" name="datesearch" value="Search by Date"><br><br>-->
-<input type="submit" name="search" value="Search"><br><br>
-<p>Filtros aplicados: </p> 
-<?php
-if(isset($_POST['sensorIDToSearch'])) { echo $_POST['sensorIDToSearch'].'<br/>'; }
-if(isset($_POST['sensorIDToSearch'])) { echo $_POST['startDateToSearch'].'<br/>'; }
-if(isset($_POST['sensorIDToSearch'])) { echo $_POST['endDateToSearch'].'<br/>'; }
-if(isset($_POST['sensorIDToSearch'])) { echo $_POST['type'].'<br/>'; }
-if(isset($_POST['sensorIDToSearch'])) { echo $_POST['gtype'].'<br/>'; }
-?>
+<div class="container" style="margin-top: 100px;"> 
+              <div class="row">
+                <div class="col-sm">
+                      <div class="form-group">
+                        <label for="sensorIDToSearch">Sensor Number </label>
+                        <input type="text" name="sensorIDToSearch" placeholder="Sensor ID" class="form-control">
+                        <small class="form-text text-muted">
+                        <span> Range Fixed Sensors: <?php echo $rowcityRangeSensor['StartSensor']; ?> to  <?php echo $rowcityRangeSensor['EndSensor']; ?></span>
+                        <br/>
+                        <span> Range Mobile Sensors: <?php echo $rowcityRangeSensorM['StartSensor']; ?> to  <?php echo $rowcityRangeSensorM['EndSensor']; ?></span>
+                        </small>
+                      </div>
+                </div>
+                <div class="col-sm">      
+                      <div class="form-group">
+                        <label for="startDateToSearch">Start Date / Time</label>
+                        <input type="datetime" name = "startDateToSearch" placeholder="2017-11-01 06:00:00" class="form-control">
+                        <small class="form-text text-muted">
+                          <span> Range Date Available: <?php echo $rowcityRangeDate['StartDate']; ?> to  <?php echo $rowcityRangeDate['EndDate']; ?></span>
+                        </small>
+                      </div>
+                </div>
+                <div class="col-sm">
+                      <div class="form-group">
+                        <label for="endDateToSearch">End Date / Time</label>
+                        <input type="datetime" name = "endDateToSearch" placeholder="2019-11-01 06:00:00" class="form-control">
+                        <small class="form-text text-muted">
 
+                        </small>
+                      </div>
+                </div>
+                <div class="col-sm">
+                      <div class="form-group">
+                        <label for="type">Sensor Type</label>
+                        <select name="type" class="form-control">
+                          <option value="Temperature" selected>Temperature</option>
+                          <option value="Pressure">Pressure</option>
+                          <option value="Humidity">Humidity</option>
+                          <option value="PM1">PM 1</option>
+                          <option value="PM2_5">PM 2.5</option>
+                          <option value="PM10">PM 10</option>
+                        </select>
+                      </div>
+                </div>
+              </div>
+              <!--div class="form-group">
+              <label for="gtype">Graph Type</label>
+              <select name="gtype" class="form-control">
+                <option value="detail" selected>Detail</option>
+                <option value="avg">Average</option>
+              </select>
+              </div-->
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <input type="submit" name="search" value="Search" class="btn btn-primary" style="margin: 20 37%;text-align: center;width: 300px;">
+                <br/>
+                <p class="text-center">Filtros aplicados: </p> 
+                <?php
+                if(isset($_POST['sensorIDToSearch'])) { echo '<b>SensorID:</b> ' . $_POST['sensorIDToSearch']; } else { echo '-'; }
+                if(isset($_POST['startDateToSearch'])) { echo ' <b>Inicio:</b> ' . $_POST['startDateToSearch']; } else { echo '-'; }
+                if(isset($_POST['endDateToSearch'])) { echo ' <b>Fin:</b> ' . $_POST['endDateToSearch']; } else { echo '-'; }
+                if(isset($_POST['type'])) { echo ' <b>Tipo:</b> ' . $_POST['type']; } else { echo '-'; }
+                //if(isset($_POST['sensorIDToSearch'])) { echo $_POST['gtype'].'<br/>'; }
+                ?>
+              </div>
+            </div>
+          </div>
           <h1 style="text-align:center;"><?php echo $rowcity['CityName']; ?> - <?php echo $rowcity['State']; ?></h1>
           <?php 
           //echo  $query1;
